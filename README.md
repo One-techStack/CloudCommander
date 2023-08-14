@@ -49,6 +49,7 @@ Please note, that most subscripts can be used standalone as well.
 
 ## Folder Structure
 
+```
 CloudCommander/
 │
 ├── README.md
@@ -67,7 +68,7 @@ CloudCommander/
 └── gcp/
     ├── __init__.py
     └── gcp_account_info.py
-
+```
 
 
 The output will display the ID and status of instances for each cloud provider.
