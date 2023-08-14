@@ -51,21 +51,23 @@ Please note, that most subscripts can be used standalone as well.
 
 CloudCommander/
 │
-├── azure/
-│   ├── azure_account_info.py
-│   └── ... (other Azure-specific modules)
-│
-├── aws/
-│   ├── aws_account_info.py
-│   └── ... (other AWS-specific modules)
-│
-├── gcp/
-│   ├── gcp_account_info.py
-│   └── ... (other GCP-specific modules)
-│
+├── README.md
+├── cloudcommander.py
 ├── checkcloud.py
 ├── install_dependencies.py
-└── cloudcommander.py
+│
+├── aws/
+│   ├── __init__.py
+│   └── aws_account_info.py
+│
+├── azure/
+│   ├── __init__.py
+│   └── azure_account_info.py
+│
+└── gcp/
+    ├── __init__.py
+    └── gcp_account_info.py
+
 
 
 The output will display the ID and status of instances for each cloud provider.
