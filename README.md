@@ -13,6 +13,7 @@
 
 - Python 3.x
 - Pip (for installing required libraries)
+- First run the script install_dependencies.py: ```python install_dependencies.py```
 
 ## Installation
 
@@ -41,8 +42,31 @@ To communicate with each cloud platform, **CloudCommander** relies on SDKs and A
 
 Execute the script:
 ```bash
-python cloud_commander.py
+python cloudcommander.py
 ```
+
+Please note, that most subscripts can be used standalone as well.
+
+## Folder Structure
+
+CloudCommander/
+│
+├── azure/
+│   ├── azure_account_info.py
+│   └── ... (other Azure-specific modules)
+│
+├── aws/
+│   ├── aws_account_info.py
+│   └── ... (other AWS-specific modules)
+│
+├── gcp/
+│   ├── gcp_account_info.py
+│   └── ... (other GCP-specific modules)
+│
+├── checkcloud.py
+├── install_dependencies.py
+└── cloudcommander.py
+
 
 The output will display the ID and status of instances for each cloud provider.
 
