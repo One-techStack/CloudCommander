@@ -5,34 +5,28 @@ import sys
 import io
 
 def get_azure_account_info():
-    original_stderr = sys.stderr  # Store the original stderr
-    sys.stderr = io.StringIO()  # Redirect stderr
-
-    account_info = {}
-    
     try:
-        # Setting up authentication and client
+        # Use the default credential (e.g. env variables, configuration files, etc.)
         credential = DefaultAzureCredential()
+
+        # Create a Subscription client using the provided credential
         subscription_client = SubscriptionClient(credential)
+
+        # Get the first subscription (you can enhance this if there are multiple subscriptions)
         subscription = next(subscription_client.subscriptions.list())
         
-        account_info['Subscription Name'] = subscription.display_name
-        account_info['Subscription ID'] = subscription.subscription_id
-        account_info['Tenant ID'] = subscription.tenant_id
-        account_info['User'] = credential.get_token(scopes=["https://management.azure.com/.default"]).token
+        if subscription:
+            return {
+                "subscription_id": subscription.subscription_id,
+                "tenant_id": subscription.tenant_id,
+                "subscription_name": subscription.display_name,
+                "state": subscription.state
+            }
+        else:
+            return "No Azure subscription found."
 
-        return account_info
-        
-    except Exception as e:  
-        print(colored(f"Failed to fetch Azure account information. Reason: {str(e)}", "red"))
-        return None
-
-    finally:
-        sys.stderr = original_stderr  # Restore the original stderr
+    except Exception as e:
+        return f"Failed to fetch Azure account information. Reason: {str(e)}"
 
 if __name__ == "__main__":
-    info = get_azure_account_info()
-    if info:
-        for key, value in info.items():
-            print(f"{key}: {value}")
-
+    print(get_azure_account_info())
