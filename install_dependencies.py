@@ -6,6 +6,9 @@ def install_dependencies():
     """
     print("Installing dependencies for CloudCommander...")
 
+    # Prettytable
+    os.system("pip install prettytable")
+
     # AWS dependencies
     os.system("pip install boto3")
 

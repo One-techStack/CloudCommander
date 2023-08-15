@@ -1,36 +1,60 @@
-import google.cloud
+# from google.oauth2 import credentials, service_account
+# from google.cloud import resourcemanager
+# import google.auth
+
+# def get_gcp_account_info():
+#     try:
+#         # Authenticate and initialize Cloud Resource Manager
+#         creds, project_id = google.auth.default()
+#         client = resourcemanager.ProjectsClient(credentials=creds)
+
+#         # Fetch account information
+#         project = client.get_project(project_id)
+#         account_info = {
+#             'Project ID': project.project_id,
+#             'Project Name': project.name,
+#             'Project Number': project.number,
+#             'Lifecycle State': project.state.name,
+#             'Project Labels': project.labels
+#         }
+
+#         return account_info
+#     except Exception as e:
+#         print(f"Failed to fetch GCP account information. Reason: {e}")
+#         return None
+
+# if __name__ == "__main__":
+#     info = get_gcp_account_info()
+#     print(info)
+
 from google.cloud import resourcemanager
-from google.auth.exceptions import DefaultCredentialsError
+import google.auth
 
 def get_gcp_account_info():
-    """
-    Retrieves general account information for GCP.
+    try:
+        # Authenticate with GCP
+        creds, project_id = google.auth.default()
+        
+        # Initialize the Resource Manager Client
+        client = resourcemanager.ProjectsClient(credentials=creds)
+        
+        # Get the project details
+        project = client.get_project(project_id)
+        
+        account_info = {
+            'Project ID': project.project_id,
+            'Project Name': project.name,
+            # 'Project Number': project.number,
+            # 'Lifecycle State': project.status,
+            'Project Labels': project.labels
+        }
 
-    Returns:
-        dict: A dictionary containing GCP account details.
-    """
-    client = resourcemanager.ProjectsClient()
+        return account_info
 
-    project_details = []
-    for project in client.list_projects():
-        project_details.append({
-            'project_id': project.project_id,
-            'project_name': project.name,
-            'labels': project.labels,
-            'status': project.status
-        })
-
-    # Currently, this script returns a list of projects in the GCP account.
-    # You can extend this to gather more details.
-    account_info = {
-        'projects': project_details
-    }
-
-    return account_info
+    except Exception as e:
+        print(f"Failed to fetch GCP account information. Reason: {e}")
+        return None
 
 if __name__ == "__main__":
-    try:
-        gcp_info = get_gcp_account_info()
-        print("GCP Account Info:", gcp_info)
-    except DefaultCredentialsError:
-        print("GCP is not set up on this machine.")
+    info = get_gcp_account_info()
+    print(info)
