@@ -21,12 +21,20 @@ def display_info_table(cloud_name, info_dict):
 def main():
     available_clouds = []
 
+    # Make a nice intro
+    print("Welcome to Cloud Commander!")
+    print("\nChecking available clouds...\n")
+    print("\nSupported Clouds:")
+    print("AWS, Azure, GCP\n")
+
     # AWS Check and Operations
     if checkcloud.check_aws_setup():
         available_clouds.append('aws')
         # AWS-specific actions can be invoked here
         aws_info = get_aws_account_info()
         display_info_table("AWS", aws_info)
+        # Add two new lines after AWS info
+        print("\n")
 
     # Azure Check and Operations
     if checkcloud.check_azure_setup():
@@ -34,6 +42,8 @@ def main():
         # Azure-specific actions can be invoked here
         azure_info = get_azure_account_info()
         display_info_table("Azure", azure_info)
+        # Add two new lines after Azure info
+        print("\n")
 
     # GCP Check and Operations
     if checkcloud.check_gcp_setup():
@@ -42,10 +52,11 @@ def main():
         gcp_info = get_gcp_account_info()
         if gcp_info:
             display_info_table("GCP Info", gcp_info)
+        # Add two new lines after GCP info
+        print("\n")
 
     # Display available clouds
 
-    # Print a headline for "available clouds" in highlight color
     print("\nAvailable Clouds:")
     cloud_table = PrettyTable()
     cloud_table.field_names = ["Available Clouds"]

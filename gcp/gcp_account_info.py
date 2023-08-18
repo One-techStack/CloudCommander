@@ -33,14 +33,15 @@ def get_gcp_account_info():
     # 3. List of Configurations
     try:
         configurations = subprocess.check_output(['gcloud', 'config', 'configurations', 'list', '--format=value(name)']).decode('utf-8').splitlines()
-        account_info['configurations'] = configurations
+        account_info['configurations'] = '\n'.join(configurations)
     except:
         account_info['configurations'] = "Failed to retrieve."
 
     # 4. Activated Services
     try:
         services = json.loads(subprocess.check_output(['gcloud', 'services', 'list', '--enabled', '--format=json']).decode('utf-8'))
-        account_info['enabled_services'] = [service['config']['name'] for service in services]
+        services_list = [service['config']['name'] for service in services]
+        account_info['enabled_services'] = '\n'.join(services_list)
     except:
         account_info['enabled_services'] = "Failed to retrieve."
 
