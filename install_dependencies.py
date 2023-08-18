@@ -16,7 +16,7 @@ def install_dependencies():
     os.system("pip install azure-identity azure-mgmt-resource")
 
     # GCP dependencies
-    os.system("pip install google-auth google-cloud-core google-cloud-resource-manager")
+    os.system("pip install google-cloud-bigquery google-cloud google-cloud-storage google-auth google-cloud-core google-cloud-resource-manager")
 
     print("\nDependencies installation completed!")
 
