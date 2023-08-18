@@ -39,8 +39,9 @@ def main():
     if checkcloud.check_gcp_setup():
         available_clouds.append('gcp')
         # GCP-specific actions can be invoked here
-        # gcp_info = get_gcp_account_info()
-        # display_info_table("GCP", gcp_info)
+        gcp_info = get_gcp_account_info()
+        if gcp_info:
+            display_info_table("GCP Info", gcp_info)
 
     # Display available clouds
 
